@@ -102,8 +102,6 @@ class PuzzlePieceState extends State<PuzzlePiece> {
   }
 }
 
-// ----- Clipper -----
-
 class PuzzlePieceClipper extends CustomClipper<Path> {
   final int row;
   final int col;
@@ -120,8 +118,6 @@ class PuzzlePieceClipper extends CustomClipper<Path> {
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
 }
-
-// ----- Painter -----
 
 class PuzzlePiecePainter extends CustomPainter {
   final int row;
@@ -144,8 +140,6 @@ class PuzzlePiecePainter extends CustomPainter {
   @override
   bool shouldRepaint(CustomPainter oldDelegate) => false;
 }
-
-// ----- Path Generator -----
 
 Path getPiecePath(Size size, int row, int col, int maxRow, int maxCol) {
   final width = size.width / maxCol;
