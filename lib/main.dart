@@ -35,18 +35,25 @@ class _MyHomePageState extends State<MyHomePage> {
   final ImagePicker _picker = ImagePicker();
 
   Future<void> getImage(ImageSource source) async {
-    final XFile? pickedFile = await _picker.pickImage(source: source);
+  final XFile? pickedFile = await _picker.pickImage(source: source);
 
-    if (pickedFile != null) {
-      setState(() {
-        _image = File(pickedFile.path);
-        pieces.clear();
-      });
+  if (pickedFile != null) {
+    final imageFile = File(pickedFile.path);
+    final imageWidget = Image.file(imageFile);
 
-      final Image imageWidget = Image.file(_image!);
-      splitImage(imageWidget);
-    }
+    // Pre-cache image
+    await precacheImage(imageWidget.image, context);
+
+    // Now update state and split
+    setState(() {
+      _image = imageFile;
+      pieces.clear();
+    });
+
+    splitImage(imageWidget);
   }
+}
+
 
   Future<Size> getImageSize(Image image) async {
     final Completer<Size> completer = Completer<Size>();
